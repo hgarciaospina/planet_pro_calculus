@@ -20,4 +20,3 @@ def register(request):
 
 class LoginView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
