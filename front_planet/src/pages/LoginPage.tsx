@@ -22,7 +22,7 @@ const LoginPage = () => {
             toast.success("Inicio de sesión exitoso!");
             navigate("/")
         },
-        onError: (error) => {
+        onError: () => {
             toast.error("Hubo un error, intenta nuevamente");
         }
     })
@@ -51,7 +51,7 @@ const LoginPage = () => {
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
 
               <div>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Su correo electrónico</label>
                 <input 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -59,7 +59,7 @@ const LoginPage = () => {
               </div>
 
               <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
                 <input 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

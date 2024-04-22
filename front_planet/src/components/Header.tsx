@@ -8,6 +8,7 @@ import { useAuthStore } from "../store/auth";
 import jwt_decode from "jwt-decode"
 import { Token } from "../Interfaces";
 import logo from '../assets/logo.png'
+import avatar from '../assets/avatar.png'
 
 
 const Header = () => {
@@ -16,15 +17,11 @@ const Header = () => {
   const token: string = useAuthStore.getState().access;
   const { isAuth } = useAuthStore()
 
-    let is_admin: boolean;
-    let user_id: number;
-    let avatar: string;
-
+  let is_admin: boolean;
+ 
   if(isAuth) {
     const tokenDecoded: Token = jwt_decode(token)
     is_admin = tokenDecoded.is_staff;
-    user_id = tokenDecoded.user_id;
-    avatar = String(tokenDecoded.avatar)
   } 
 
   function logOutFun() {
@@ -59,7 +56,7 @@ const Header = () => {
                   <img
                     className="hidden h-8 w-auto lg:block"
                     src={ logo }
-                    alt="Logo"
+                    alt="logo"
                   />
                 </div>
 
@@ -75,13 +72,6 @@ const Header = () => {
                           className='bg-slate-400 p-2 px-4 rounded-lg text-black dark:bg-gray-900 dark:text-white' 
                         >
                           Inicio
-                        </Link>
-
-                        <Link
-                          to={'/cate'}
-                          className='text-black p-2 px-4 rounded-lg hover:bg-slate-400 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
-                        >
-                          Categories
                         </Link>
                       </>
 
@@ -102,16 +92,6 @@ const Header = () => {
                           </Link>
                         </>
                       )}
-
-                    {is_admin && is_admin && (
-                      <Link
-                        to={'/admin'}
-                        className='text-black p-2 px-4 rounded-lg hover:bg-slate-400 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
-                      >
-                        Panel de administración
-                      </Link>
-                    )}
-
 
                   </div>
 
@@ -136,11 +116,11 @@ const Header = () => {
                   <Menu as="div" className="relative ml-2">
                     <div>
                       <Menu.Button className="flex rounded-full ml-8 text-sm focus:outline-none ">
-                        <span className="sr-only">Open user menu</span>
+                        <span className="sr-only">Abrir menú de usuario</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                            src={`${import.meta.env.VITE_BACKEND_URL}${avatar}`}
-                          alt=""
+                            src={avatar}
+                          alt="avatar"
                         />
                       </Menu.Button>
                     </div>
@@ -154,16 +134,6 @@ const Header = () => {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right bg-white dark:bg-slate-950 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              to="/profile"
-                              className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}
-                            >
-                              Su perfil
-                            </Link>
-                          )}
-                        </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
                             <span
@@ -185,20 +155,6 @@ const Header = () => {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-
-
-            <div className="flex mx-2">
-              <div className="absolute inset-y-[72px] left-2 px-4 flex pl-3 pointer-events-none">
-                <svg className="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                <span className="sr-only">Search icon</span>
-              </div>
-              <input type="text" id="search-navbar" className="block w-full p-2
-                pl-10 text-sm text-gray-900 border border-gray-300 rounded-full 
-                bg-gray-50 dark:bg-gray-700 outline-none
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  
-                " placeholder="Search..."/>
-            </div>
-
             <div className="space-y-1 px-2 pb-3 pt-2">
               {isAuth ? (
                 <div className="w-full grid grid-cols-1">
@@ -207,13 +163,6 @@ const Header = () => {
                     className='bg-slate-400 p-2 px-4 rounded-lg text-black dark:bg-gray-900 dark:text-white' 
                   >
                     Inicio
-                  </Link>
-
-                  <Link
-                    to={'/cate'}
-                    className='text-black p-2 px-4 rounded-lg hover:bg-slate-400 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    Categories
                   </Link>
                 </div>
 
@@ -234,18 +183,6 @@ Registrarse
                     </Link>
 </div>
                 )}
-
-              {is_admin  && (
-                <div className="w-full">
-                  <Link
-                    to={'/'}
-                    className='text-black p-2 px-4 rounded-lg hover:bg-slate-400 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
-                  >
-                    Admin Panel
-                  </Link>
-                </div>
-              )}
-
             </div>
           </Disclosure.Panel>
         </>
