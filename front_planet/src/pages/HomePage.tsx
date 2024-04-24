@@ -11,14 +11,21 @@ const HomePage = () => {
     let map: EsriMap | null = null;
     let view: MapView | null = null;
 
-    const initializeMap = () => {
+    const initializeMap = async () => {
       if (mapRef.current) {
+        const apiUrl = 'https://enterpriseaws.procalculo.com/arcgis/rest/services/Hosted/probando_imagen_desde_live/ImageServer?f=pjson';
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        const { xmin, ymin, xmax, ymax, spatialReference } = data.extent;
+        const { wkid } = spatialReference;
+
         map = new EsriMap({
           basemap: 'streets-night-vector',
           layers: [
             new ArcGISMapImageLayer({
-              url: 'https://enterpriseaws.procalculo.com/arcgis/rest/services/Hosted/probando_imagen_desde_live/ImageServer?f=pjson',
-              title: 'Imagen desde Live'
+              url: apiUrl,
+              title: data.name
             })
           ]
         });
@@ -27,12 +34,12 @@ const HomePage = () => {
           container: mapRef.current,
           map: map,
           extent: new Extent({
-            xmin: 375549,
-            ymin: 196384.53002929688,
-            xmax: 380439,
-            ymax: 200014.53002929688,
+            xmin: xmin,
+            ymin: ymin,
+            xmax: xmax,
+            ymax: ymax,
             spatialReference: {
-              wkid: 32618
+              wkid: wkid
             }
           }),
           scale: 50000,
