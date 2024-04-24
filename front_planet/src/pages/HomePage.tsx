@@ -5,7 +5,7 @@ import ArcGISMapImageLayer from "@arcgis/core/layers/FeatureLayer";
 import { Extent } from "@arcgis/core/geometry";
 
 const HomePage = () => {
-  const mapRef = useRef<HTMLDivElement | null>(null); // Ref con tipo explícito para el div
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let map: EsriMap | null = null;
@@ -14,7 +14,7 @@ const HomePage = () => {
     const initializeMap = () => {
       if (mapRef.current) {
         map = new EsriMap({
-          basemap: 'streets-night-vector', // Cambiar el basemap a uno con fondo oscuro
+          basemap: 'streets-night-vector',
           layers: [
             new ArcGISMapImageLayer({
               url: 'https://enterpriseaws.procalculo.com/arcgis/rest/services/Hosted/probando_imagen_desde_live/ImageServer?f=pjson',
@@ -35,8 +35,8 @@ const HomePage = () => {
               wkid: 32618
             }
           }),
-          scale: 50000, // Escala inicial para mostrar más detalles
-          zoom: 14 // Nivel de zoom inicial más cercano para ver más detalles
+          scale: 50000,
+          zoom: 14
         });
       }
     };
@@ -44,7 +44,6 @@ const HomePage = () => {
     initializeMap();
 
     return () => {
-      // Clean up map and view instances if needed
       if (view) {
         view.destroy();
         view = null;
